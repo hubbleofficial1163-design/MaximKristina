@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // ⚠️ ВАШ URL GOOGLE  SCRIPT ⚠️
-            const scriptURL = 'https://script.google.com/macros/s/AVQfl8HoXXbG15gg7ftDgSvFei1sKsJzphokoIZv/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxUM5P3lMN7yUAnkmdT_DAAKX0SwK-88j7KXmJ47m5jVAO8rsU0A35ryEwvoHel82gcJw/exec';
             
             // Показать индикатор загрузки
             const submitBtn = rsvpForm.querySelector('.submit-btn');
@@ -172,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
             params.append('phone', formDataObj.phone || '');
             params.append('guests', formDataObj.guests || '1');
             params.append('attendance', formDataObj.attendance || '');
+            params.append('alcohol', formDataObj.alcohol || ''); // ← ДОБАВИТЬ ЭТУ СТРОКУ
             params.append('message', formDataObj.message || '');
             
             // Отправка данных на Google Apps Script
@@ -849,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Тестовая функция для проверки подключения к Google Apps Script
 function testGoogleScript() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfy8ktQ4VsqYYtyayAR3DIm1qHERHYsgN60LyK0VwBYdIeZ2bn-tV0JiU3EDRE5iA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUM5P3lMN7yUAnkmdT_DAAKX0SwK-88j7KXmJ47m5jVAO8rsU0A35ryEwvoHel82gcJw/exec';
     
     console.log('Тестирование подключения к Google Apps Script...');
     console.log('URL:', scriptURL);
