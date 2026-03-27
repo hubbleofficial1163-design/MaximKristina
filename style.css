@@ -1655,3 +1655,56 @@ input, select, textarea {
         font-size: 1.2rem;
     }
 }
+
+/* Альтернативный вариант - поднимаем только текстовый блок */
+.location-text {
+    top: 65%;
+    transform: translate(-50%, -50%);
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .location-text {
+        top: 60%;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .location-text {
+        top: 55%;
+    }
+}
+
+
+/* Уменьшаем расстояние между секциями */
+.details-section {
+    margin-bottom: 0;
+    padding-bottom: 30px;
+}
+
+.location-section {
+    margin-top: -30px;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .details-section {
+        padding-bottom: 20px;
+    }
+    
+    .location-section {
+        margin-top: -40px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .details-section {
+        padding-bottom: 15px;
+    }
+    
+    .location-section {
+        margin-top: -50px;
+    }
+}
