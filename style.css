@@ -1427,3 +1427,231 @@ textarea {
         gap: 4px;
     }
 }
+
+
+/* ===== ГЛОБАЛЬНОЕ УВЕЛИЧЕНИЕ РАЗМЕРА ШРИФТА ===== */
+/* Увеличиваем базовый размер шрифта для всего сайта */
+body {
+    font-size: 18px;
+}
+
+/* Увеличиваем размер основного текста */
+p, li, .timeline-content p, .location-info p, .invitation-text p, .gifts-section p, .calendar-note {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Увеличиваем заголовки секций */
+.section-title {
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+}
+
+/* Увеличиваем текст внутри hero-секции */
+.names {
+    font-size: clamp(3rem, 10vw, 5.5rem);
+}
+
+.ampersand {
+    font-size: clamp(2.5rem, 8vw, 4.8rem);
+}
+
+.date {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+}
+
+/* Увеличиваем текст приглашения */
+.invitation-text h2 {
+    font-size: clamp(2rem, 7vw, 3rem);
+}
+
+.invitation-text p {
+    font-size: 1.2rem;
+}
+
+.invitation-text .signature {
+    font-size: 1.3rem;
+}
+
+/* Увеличиваем текст истории */
+.story-text h2 {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+}
+
+.story-text p {
+    font-size: 1.2rem;
+}
+
+.quote {
+    font-size: 1.3rem;
+}
+
+/* Увеличиваем текст места проведения */
+.location-text h2 {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+}
+
+.location-info {
+    font-size: 1.2rem;
+}
+
+.location-info p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* Увеличиваем текст в таймлайне */
+.timeline-time {
+    font-size: 1.2rem;
+}
+
+.timeline-content h3 {
+    font-size: 1.4rem;
+}
+
+.timeline-content p {
+    font-size: 1.1rem;
+}
+
+/* Увеличиваем текст в футере */
+.footer-text p {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+}
+
+.footer-names {
+    font-size: clamp(2.2rem, 8vw, 3.5rem) !important;
+}
+
+/* Увеличиваем текст в форме */
+label {
+    font-size: 1rem;
+}
+
+input, select, textarea {
+    font-size: 1rem;
+    padding: 14px 18px;
+}
+
+.submit-btn {
+    font-size: 1.1rem;
+    padding: 16px 24px;
+}
+
+/* Увеличиваем текст в календаре */
+.calendar-month-year {
+    font-size: 1.6rem;
+}
+
+.calendar-weekdays span {
+    font-size: 0.95rem;
+}
+
+.calendar-day {
+    font-size: 1rem;
+}
+
+.calendar-note {
+    font-size: 1rem;
+}
+
+/* Увеличиваем текст в счетчике */
+.countdown-number {
+    font-size: clamp(3rem, 9vw, 4rem);
+}
+
+.countdown-label {
+    font-size: 1rem;
+}
+
+.countdown-message {
+    font-size: 1.2rem;
+}
+
+/* Увеличиваем текст в дресс-коде */
+.dresscode-info h3 {
+    font-size: 1.4rem;
+}
+
+.dresscode-info p {
+    font-size: 1.1rem;
+}
+
+/* Увеличиваем кнопки */
+.map-button, .close-map-btn, .music-button {
+    font-size: 1.1rem;
+    padding: 14px 28px;
+}
+
+.music-button i {
+    font-size: 1.2rem;
+}
+
+.music-hint {
+    font-size: 1rem;
+}
+
+/* Увеличиваем текст сообщений об ошибках */
+.form-message {
+    font-size: 1rem;
+}
+
+/* Мобильная адаптация — для маленьких экранов чуть меньше, но всё равно крупнее */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+    
+    p, li, .timeline-content p, .location-info p, .invitation-text p {
+        font-size: 1rem;
+    }
+    
+    .invitation-text p {
+        font-size: 1.1rem;
+    }
+    
+    .story-text p {
+        font-size: 1.1rem;
+    }
+    
+    .quote {
+        font-size: 1.2rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .timeline-time {
+        font-size: 1.1rem;
+    }
+    
+    .countdown-label {
+        font-size: 0.9rem;
+    }
+    
+    .countdown-message {
+        font-size: 1.1rem;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+    
+    .invitation-text p {
+        font-size: 1rem;
+    }
+    
+    .story-text p {
+        font-size: 1rem;
+    }
+    
+    .quote {
+        font-size: 1.1rem;
+    }
+    
+    .timeline-content h3 {
+        font-size: 1.2rem;
+    }
+}
