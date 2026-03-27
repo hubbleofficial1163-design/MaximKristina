@@ -114,7 +114,6 @@ document.addEventListener('DOMContentLoaded', function() {
             let isValid = true;
             const nameInput = document.getElementById('name');
             const phoneInput = document.getElementById('phone');
-            const guestsSelect = document.getElementById('guests');
             const attendanceSelect = document.getElementById('attendance');
             
             // Сброс предыдущих сообщений об ошибках
@@ -134,12 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 formMessage.style.display = 'block';
                 isValid = false;
                 phoneInput.focus();
-            } else if (!guestsSelect.value) {
-                formMessage.textContent = 'Пожалуйста, выберите количество гостей';
-                formMessage.className = 'form-message error';
-                formMessage.style.display = 'block';
-                isValid = false;
-                guestsSelect.focus();
             } else if (!attendanceSelect.value) {
                 formMessage.textContent = 'Пожалуйста, выберите вариант присутствия';
                 formMessage.className = 'form-message error';
@@ -153,8 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // ⚠️ ВАШ URL GOOGLE  SCRIPT ⚠️
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxUM5P3lMN7yUAnkmdT_DAAKX0SwK-88j7KXmJ47m5jVAO8rsU0A35ryEwvoHel82gcJw/exec';
+            // ⚠️ ВАШ URL GOOGLE SCRIPT ⚠️
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbzN-PYZ4kYsBeqA58tCBWSY669KVWN9uWaBBdqV9qNzIV1gjnedgAc66duQ5uevlSgtRA/exec';
             
             // Показать индикатор загрузки
             const submitBtn = rsvpForm.querySelector('.submit-btn');
@@ -162,18 +155,16 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
             submitBtn.disabled = true;
             
-            console.log('Отправка данных на свадьбу Сергея и Анастасии...');
+            console.log('Отправка данных на свадьбу Максима и Кристины...');
             console.log('URL скрипта:', scriptURL);
             console.log('Данные формы:', formDataObj);
             
-            // Создаем параметры для отправки
+            // Создаем параметры для отправки (без guests и message)
             const params = new URLSearchParams();
             params.append('name', formDataObj.name || '');
             params.append('phone', formDataObj.phone || '');
-            params.append('guests', formDataObj.guests || '1');
             params.append('attendance', formDataObj.attendance || '');
-            params.append('alcohol', formDataObj.alcohol || ''); // ← ДОБАВИТЬ ЭТУ СТРОКУ
-            params.append('message', formDataObj.message || '');
+            params.append('alcohol', formDataObj.alcohol || '');
             
             // Отправка данных на Google Apps Script
             fetch(scriptURL, {
@@ -226,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Простой POST запрос без заголовков
                 fetch(scriptURL, {
                     method: 'POST',
-                    mode: 'no-cors', // Важно для Google Apps Script
+                    mode: 'no-cors',
                     body: params.toString()
                 })
                 .then(() => {
@@ -324,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
     
-    // Функция для локального сохранения ответа
+    // Функция для локального сохранения ответа (без guests и message)
     function saveResponseLocally(formData) {
         try {
             // Сохраняем в localStorage
@@ -332,9 +323,8 @@ document.addEventListener('DOMContentLoaded', function() {
             responses.push({
                 name: formData.name || 'Без имени',
                 phone: formData.phone || 'Без телефона',
-                guests: formData.guests || '1',
                 attendance: formData.attendance || 'no',
-                message: formData.message || 'Нет комментариев',
+                alcohol: formData.alcohol || 'не указано',
                 timestamp: new Date().toISOString(),
                 date: new Date().toLocaleDateString('ru-RU'),
                 time: new Date().toLocaleTimeString('ru-RU')
@@ -398,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Функция для показа локальных ответов
+    // Функция для показа локальных ответов (без guests и message)
     function showLocalResponses() {
         try {
             const responses = JSON.parse(localStorage.getItem('wedding_responses') || '[]');
@@ -407,20 +397,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            let message = `🎉 Сохранённые ответы на свадьбу Сергея и Анастасии\n\n`;
+            let message = `🎉 Сохранённые ответы на свадьбу Максима и Кристины\n\n`;
             message += `Всего ответов: ${responses.length}\n\n`;
             
             responses.forEach((resp, index) => {
                 const attendanceText = resp.attendance === 'yes' ? '✅ Придёт' : '❌ Не придёт';
-                const guestText = resp.guests === '1' ? '1 человек' : `${resp.guests} человека`;
+                const alcoholText = resp.alcohol && resp.alcohol !== 'не указано' ? `\n   🍷 ${resp.alcohol}` : '';
                 
                 message += `${index + 1}. ${resp.name}\n`;
                 message += `   📞 ${resp.phone}\n`;
-                message += `   👥 ${guestText}\n`;
-                message += `   ${attendanceText}\n`;
-                if (resp.message && resp.message !== 'Нет комментариев') {
-                    message += `   💬 ${resp.message.substring(0, 50)}${resp.message.length > 50 ? '...' : ''}\n`;
-                }
+                message += `   ${attendanceText}${alcoholText}\n`;
                 message += `   📅 ${resp.date} ${resp.time}\n\n`;
             });
             
@@ -850,7 +836,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Тестовая функция для проверки подключения к Google Apps Script
 function testGoogleScript() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxUM5P3lMN7yUAnkmdT_DAAKX0SwK-88j7KXmJ47m5jVAO8rsU0A35ryEwvoHel82gcJw/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzN-PYZ4kYsBeqA58tCBWSY669KVWN9uWaBBdqV9qNzIV1gjnedgAc66duQ5uevlSgtRA/exec';
     
     console.log('Тестирование подключения к Google Apps Script...');
     console.log('URL:', scriptURL);
@@ -880,39 +866,6 @@ function testGoogleScript() {
             alert('❌ Не удалось подключиться к Google Apps Script.\nОшибка: ' + error.message);
         });
 }
-
-// Добавляем кнопку тестирования для отладки
-function addTestButton() {
-    if (!document.getElementById('test-script-btn')) {
-        const testBtn = document.createElement('button');
-        testBtn.id = 'test-script-btn';
-        testBtn.innerHTML = '🛠️ Тест скрипта';
-        testBtn.style.position = 'fixed';
-        testBtn.style.bottom = '60px';
-        testBtn.style.right = '10px';
-        testBtn.style.zIndex = '9998';
-        testBtn.style.padding = '8px 12px';
-        testBtn.style.backgroundColor = '#007bff';
-        testBtn.style.color = 'white';
-        testBtn.style.border = 'none';
-        testBtn.style.borderRadius = '4px';
-        testBtn.style.cursor = 'pointer';
-        testBtn.style.fontSize = '12px';
-        testBtn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
-        
-        testBtn.addEventListener('click', testGoogleScript);
-        
-        document.body.appendChild(testBtn);
-        
-        // Автоматически тестируем при загрузке (можно отключить)
-        setTimeout(testGoogleScript, 2000);
-    }
-}
-
-// Раскомментируйте следующую строку для добавления кнопки тестирования на сайт
-// window.addEventListener('load', addTestButton);
-
-
 
 // Календарь с выделенной датой свадьбы
 (function initWeddingCalendar() {
