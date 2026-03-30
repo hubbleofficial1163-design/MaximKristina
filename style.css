@@ -1437,7 +1437,7 @@ body {
 
 /* Увеличиваем размер основного текста */
 p, li, .timeline-content p, .location-info p, .invitation-text p, .gifts-section p, .calendar-note {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     line-height: 1.7;
 }
 
@@ -1478,11 +1478,11 @@ p, li, .timeline-content p, .location-info p, .invitation-text p, .gifts-section
 }
 
 .story-text p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 .quote {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
 }
 
 /* Увеличиваем текст места проведения */
@@ -1495,7 +1495,7 @@ p, li, .timeline-content p, .location-info p, .invitation-text p, .gifts-section
 }
 
 .location-info p {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 15px;
 }
 
@@ -1505,11 +1505,11 @@ p, li, .timeline-content p, .location-info p, .invitation-text p, .gifts-section
 }
 
 .timeline-content h3 {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
 }
 
 .timeline-content p {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 }
 
 /* Увеличиваем текст в футере */
@@ -1601,7 +1601,7 @@ input, select, textarea {
     }
     
     p, li, .timeline-content p, .location-info p, .invitation-text p {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
     
     .invitation-text p {
@@ -1609,15 +1609,15 @@ input, select, textarea {
     }
     
     .story-text p {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
     
     .quote {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
     
     .timeline-content h3 {
-        font-size: 1.3rem;
+        font-size: 1.8rem;
     }
     
     .timeline-time {
@@ -1644,15 +1644,15 @@ input, select, textarea {
     }
     
     .story-text p {
-        font-size: 1rem;
+        font-size: 1.4rem;
     }
     
     .quote {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
     
     .timeline-content h3 {
-        font-size: 1.2rem;
+        font-size: 1.8rem;
     }
 }
 
@@ -1708,3 +1708,5 @@ input, select, textarea {
         margin-top: -50px;
     }
 }
+
+
