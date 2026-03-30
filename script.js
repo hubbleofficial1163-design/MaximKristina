@@ -69,37 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const formMessage = document.getElementById('form-message');
     
     if (rsvpForm) {
-        // Маска для телефона
-        const phoneInput = document.getElementById('phone');
-        if (phoneInput) {
-            phoneInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                
-                if (value.length > 0) {
-                    if (value[0] === '7' || value[0] === '8') {
-                        value = '+7 ' + value.substring(1);
-                    } else if (value[0] === '9') {
-                        value = '+7 ' + value;
-                    }
-                    
-                    if (value.length > 6) {
-                        value = value.substring(0, 6) + ' ' + value.substring(6);
-                    }
-                    if (value.length > 10) {
-                        value = value.substring(0, 10) + '-' + value.substring(10);
-                    }
-                    if (value.length > 13) {
-                        value = value.substring(0, 13) + '-' + value.substring(13);
-                    }
-                    if (value.length > 16) {
-                        value = value.substring(0, 16);
-                    }
-                }
-                
-                e.target.value = value;
-            });
-        }
-        
         rsvpForm.addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -113,8 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Валидация формы
             let isValid = true;
             const nameInput = document.getElementById('name');
-            const phoneInput = document.getElementById('phone');
             const attendanceSelect = document.getElementById('attendance');
+            const alcoholSelect = document.getElementById('alcohol');
             
             // Сброс предыдущих сообщений об ошибках
             formMessage.className = 'form-message';
@@ -127,18 +96,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 formMessage.style.display = 'block';
                 isValid = false;
                 nameInput.focus();
-            } else if (!phoneInput.value.trim()) {
-                formMessage.textContent = 'Пожалуйста, введите ваш номер телефона';
-                formMessage.className = 'form-message error';
-                formMessage.style.display = 'block';
-                isValid = false;
-                phoneInput.focus();
             } else if (!attendanceSelect.value) {
                 formMessage.textContent = 'Пожалуйста, выберите вариант присутствия';
                 formMessage.className = 'form-message error';
                 formMessage.style.display = 'block';
                 isValid = false;
                 attendanceSelect.focus();
+            } else if (!alcoholSelect.value) {
+                formMessage.textContent = 'Пожалуйста, выберите предпочтения по алкоголю';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                isValid = false;
+                alcoholSelect.focus();
             }
             
             if (!isValid) {
@@ -147,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // ⚠️ ВАШ URL GOOGLE SCRIPT ⚠️
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbzN-PYZ4kYsBeqA58tCBWSY669KVWN9uWaBBdqV9qNzIV1gjnedgAc66duQ5uevlSgtRA/exec';
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwGm-6950tJRTn7srEc8ltwOSKiy4ZzeUG4gz5eR2w6Zo3lDY84v5gBL3qCEK3pz9AyTA/exec';
             
             // Показать индикатор загрузки
             const submitBtn = rsvpForm.querySelector('.submit-btn');
@@ -159,10 +128,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('URL скрипта:', scriptURL);
             console.log('Данные формы:', formDataObj);
             
-            // Создаем параметры для отправки (без guests и message)
+            // Создаем параметры для отправки (без телефона)
             const params = new URLSearchParams();
             params.append('name', formDataObj.name || '');
-            params.append('phone', formDataObj.phone || '');
             params.append('attendance', formDataObj.attendance || '');
             params.append('alcohol', formDataObj.alcohol || '');
             
@@ -315,14 +283,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
     
-    // Функция для локального сохранения ответа (без guests и message)
+    // Функция для локального сохранения ответа (без телефона)
     function saveResponseLocally(formData) {
         try {
             // Сохраняем в localStorage
             const responses = JSON.parse(localStorage.getItem('wedding_responses') || '[]');
             responses.push({
                 name: formData.name || 'Без имени',
-                phone: formData.phone || 'Без телефона',
                 attendance: formData.attendance || 'no',
                 alcohol: formData.alcohol || 'не указано',
                 timestamp: new Date().toISOString(),
@@ -388,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Функция для показа локальных ответов (без guests и message)
+    // Функция для показа локальных ответов (без телефона)
     function showLocalResponses() {
         try {
             const responses = JSON.parse(localStorage.getItem('wedding_responses') || '[]');
@@ -405,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const alcoholText = resp.alcohol && resp.alcohol !== 'не указано' ? `\n   🍷 ${resp.alcohol}` : '';
                 
                 message += `${index + 1}. ${resp.name}\n`;
-                message += `   📞 ${resp.phone}\n`;
                 message += `   ${attendanceText}${alcoholText}\n`;
                 message += `   📅 ${resp.date} ${resp.time}\n\n`;
             });
@@ -836,7 +802,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Тестовая функция для проверки подключения к Google Apps Script
 function testGoogleScript() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzN-PYZ4kYsBeqA58tCBWSY669KVWN9uWaBBdqV9qNzIV1gjnedgAc66duQ5uevlSgtRA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwGm-6950tJRTn7srEc8ltwOSKiy4ZzeUG4gz5eR2w6Zo3lDY84v5gBL3qCEK3pz9AyTA/exec';
     
     console.log('Тестирование подключения к Google Apps Script...');
     console.log('URL:', scriptURL);
